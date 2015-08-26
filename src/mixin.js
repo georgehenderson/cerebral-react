@@ -17,7 +17,16 @@ module.exports = {
     this.recorder = this.context.controller.recorder;
     this.get = this.context.controller.get;
     this.context.controller.on('change', this._update);
-    this._update(this.context.controller.get([]));
+    // this._update(this.context.controller.get([]));
+  },
+  getInitialState: function () {
+    var statePaths = this.getStatePaths();
+    var state = this.context.controller.get();
+    var newState = Object.keys(statePaths).reduce(function (newState, key) {
+      newState[key] = getValue(statePaths[key], state);
+      return newState;
+    }, {});
+    return newState;
   },
   componentWillUnmount: function () {
     this._isUmounting = true;
