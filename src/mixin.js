@@ -16,8 +16,9 @@ module.exports = {
     this.signals = this.context.controller.signals;
     this.recorder = this.context.controller.recorder;
     this.get = this.context.controller.get;
+  },
+  componentDidMount: function () {
     this.context.controller.on('change', this._update);
-    // this._update(this.context.controller.get([]));
   },
   getInitialState: function () {
     var statePaths = this.getStatePaths();
